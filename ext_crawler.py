@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import logging
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 def path_from_user():
@@ -9,28 +10,28 @@ def path_from_user():
     while not path:
         path = raw_input('Path: ')
         if not os.path.exists(path):
-            print 'path do not exists!'
-            exit(0)
+            continue
         else:
             return path
+
 
 def ext_from_user():
     ext = None
     _newlist = []
     path = path_from_user()
-    l = int()
+    line = int()
     while not ext or _newlist is None:
         ext = raw_input('Extension: ')
     files = [f for f in os.listdir(path) if f.endswith(ext)]
     if not files:
-        print ('extension cant be found: {}'.format(ext))
+        logging.info('extension can`t be found: {}'.format(ext))
         return
     _newlist.append(files)
     for datos in sorted(_newlist):
         for _files in datos:
-            l += 1
-            print ('{}.-'.format(l) + _files)
-        print ('number of files found: {}'.format(len(datos)))
+            line += 1
+            print ('{}.-'.format(line) + _files)
+        logging.info('number of files found: {}'.format(len(datos)))
 
 
 def main():
